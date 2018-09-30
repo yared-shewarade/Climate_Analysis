@@ -73,10 +73,10 @@ def stations():
     active_station = session.query(Measurement.station, func.count(Measurement.station)).\
               group_by(Measurement.station).order_by(func.count(Measurement.station).desc()).all()
 
-    #  Unravel active_station into a 1D array and convert to a list
-    stations = list(np.ravel(active_station))
+    #  Unravel active_station into a 1D array and convert to a dict
+    stations = dict(np.ravel(active_station))
 
-    return jsonify(stations)
+    return jsonify(stations.to_dict())
 
 #################################################
 
